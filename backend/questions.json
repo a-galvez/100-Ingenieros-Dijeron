@@ -1,0 +1,221 @@
+[
+  {
+    "id": 1,
+    "question": "Algo que un ingeniero siempre lleva en su mochila.",
+    "answers": [
+      { "id": 1, "text": "Calculadora científica", "points": 30 },
+      { "id": 2, "text": "Laptop", "points": 25 },
+      { "id": 3, "text": "Materiales de dibujo", "points": 20 },
+      { "id": 4, "text": "Cuadernos", "points": 15 },
+      { "id": 5, "text": "Bolígrafo/lápiz", "points": 10 }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Algo que los estudiantes de la UNAH siempre buscan.",
+    "answers": [
+      { "id": 1, "text": "WiFi", "points": 30 },
+      { "id": 2, "text": "Estacionamiento", "points": 25 },
+      { "id": 3, "text": "Tomacorrientes", "points": 20 },
+      { "id": 4, "text": "Comida barata", "points": 15 },
+      { "id": 5, "text": "Transporte", "points": 10 },
+      { "id": 6, "text": "Aula libre", "points": 5 }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Un problema típico de los estudiantes en la UNAH.",
+    "answers": [
+      { "id": 1, "text": "No encontrar parqueo", "points": 30 },
+      { "id": 2, "text": "No haber cupo en clase", "points": 25 },
+      { "id": 3, "text": "Tráfico para llegar", "points": 20 },
+      { "id": 4, "text": "Profesores exigentes", "points": 15 },
+      { "id": 5, "text": "Fallas en el wifi", "points": 10 },
+      { "id": 6, "text": "Buscar silla en otra aula", "points": 5 }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Comida favorita de los universitarios.",
+    "answers": [
+      { "id": 1, "text": "Baleadas", "points": 30 },
+      { "id": 2, "text": "Nachos", "points": 25 },
+      { "id": 3, "text": "Pollo frito/Pollolandia", "points": 20 },
+      { "id": 4, "text": "Tacos", "points": 15 },
+      { "id": 5, "text": "Pizza", "points": 10 },
+      { "id": 6, "text": "Hamburguesas", "points": 8 },
+      { "id": 7, "text": "Pan con frijoles", "points": 5 }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Materia que muchos estudiantes consideran difícil.",
+    "answers": [
+      { "id": 1, "text": "Cálculo 1", "points": 30 },
+      { "id": 2, "text": "Física", "points": 25 },
+      { "id": 3, "text": "Química", "points": 20 },
+      { "id": 4, "text": "Termodinámica", "points": 15 },
+      { "id": 5, "text": "Geometría 111", "points": 10 },
+      { "id": 6, "text": "Resistencia de materiales", "points": 5 }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Bebida más pedida en la U.",
+    "answers": [
+      { "id": 1, "text": "Café", "points": 30 },
+      { "id": 2, "text": "Agua", "points": 25 },
+      { "id": 3, "text": "Refresco", "points": 20 },
+      { "id": 4, "text": "Jugos naturales", "points": 15 },
+      { "id": 5, "text": "Té helado", "points": 10 },
+      { "id": 6, "text": "Energizantes", "points": 8 },
+      { "id": 7, "text": "Licuados", "points": 5 }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "Algo que se fotocopia mucho en la UNAH.",
+    "answers": [
+      { "id": 1, "text": "Forma 03", "points": 30 },
+      { "id": 2, "text": "Guías de estudio", "points": 25 },
+      { "id": 3, "text": "Exámenes pasados", "points": 20 },
+      { "id": 4, "text": "Portadas", "points": 15 },
+      { "id": 5, "text": "Formulas", "points": 10 },
+      { "id": 6, "text": "Tareas", "points": 8 },
+      { "id": 7, "text": "Constancias", "points": 5 }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Algo que se pierde fácil en la universidad.",
+    "answers": [
+      { "id": 1, "text": "Carnet estudiantil", "points": 30 },
+      { "id": 2, "text": "DNI", "points": 25 },
+      { "id": 3, "text": "Celular", "points": 20 },
+      { "id": 4, "text": "Llaves", "points": 15 },
+      { "id": 5, "text": "Sombrilla", "points": 10 },
+      { "id": 6, "text": "Cuadernos", "points": 8 },
+      { "id": 7, "text": "Dinero", "points": 5 }
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Una frase típica en época de parciales.",
+    "answers": [
+      { "id": 1, "text": "Que sea lo que Dios quiera", "points": 30 },
+      { "id": 2, "text": "Ya se puede pagar reposición?", "points": 25 },
+      { "id": 3, "text": "Sólo con que pase", "points": 20 },
+      { "id": 4, "text": "¿Alguien tiene el examen pasado?", "points": 15 },
+      { "id": 5, "text": "Esto no lo vimos en clase", "points": 10 },
+      { "id": 6, "text": "Mejor no entro al examen", "points": 8 },
+      { "id": 7, "text": "No dormí anoche", "points": 5 }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "Algo que hacen los estudiantes cuando no hay clase.",
+    "answers": [
+      { "id": 1, "text": "Se van a comer", "points": 30 },
+      { "id": 2, "text": "Se quedan en el celular", "points": 25 },
+      { "id": 3, "text": "Van a la biblioteca", "points": 20 },
+      { "id": 4, "text": "Juegan UNO", "points": 15 },
+      { "id": 5, "text": "Se van a la casa", "points": 10 },
+      { "id": 6, "text": "Buscan otra aula", "points": 5 }
+    ]
+  },
+  {
+    "id": 11,
+    "question": "Un accesorio que usan muchos universitarios.",
+    "answers": [
+      { "id": 1, "text": "Audífonos", "points": 30 },
+      { "id": 2, "text": "Gafas", "points": 25 },
+      { "id": 3, "text": "Laptop", "points": 20 },
+      { "id": 4, "text": "Tablet", "points": 15 },
+      { "id": 5, "text": "Pulseras", "points": 10 },
+      { "id": 6, "text": "Aretes", "points": 5 }
+    ]
+  },
+  {
+    "id": 12,
+    "question": "Algo que siempre hay en los pasillos de la UNAH.",
+    "answers": [
+      { "id": 1, "text": "Estudiantes sentados", "points": 30 },
+      { "id": 2, "text": "Ruido", "points": 25 },
+      { "id": 3, "text": "Profesores caminando", "points": 20 },
+      { "id": 4, "text": "Vendedores", "points": 15 },
+      { "id": 5, "text": "Mochilas tiradas", "points": 10 },
+      { "id": 6, "text": "Grupos estudiando", "points": 5 }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "Un país famoso por su comida.",
+    "answers": [
+      { "id": 1, "text": "Italia", "points": 30 },
+      { "id": 2, "text": "México", "points": 25 },
+      { "id": 3, "text": "Japón", "points": 20 },
+      { "id": 4, "text": "España", "points": 15 },
+      { "id": 5, "text": "India", "points": 10 }
+    ]
+  },
+  {
+    "id": 14,
+    "question": "Un científico famoso.",
+    "answers": [
+      { "id": 1, "text": "Albert Einstein", "points": 30 },
+      { "id": 2, "text": "Isaac Newton", "points": 25 },
+      { "id": 3, "text": "Nikola Tesla", "points": 20 },
+      { "id": 4, "text": "Marie Curie", "points": 15 },
+      { "id": 5, "text": "Stephen Hawking", "points": 10 },
+      { "id": 6, "text": "Charles Darwin", "points": 8 },
+      { "id": 7, "text": "Thomas Edison", "points": 5 }
+    ]
+  },
+  {
+    "id": 15,
+    "question": "Mejores puestos de comida en la UNAH.",
+    "answers": [
+      { "id": 1, "text": "Don de Don Chui", "points": 30 },
+      { "id": 2, "text": "Pollo Landia", "points": 25 },
+      { "id": 3, "text": "Gabrielas", "points": 20 },
+      { "id": 4, "text": "Pespire", "points": 15 },
+      { "id": 5, "text": "Habana", "points": 10 },
+      { "id": 6, "text": "Comidas Universitarias", "points": 5 }
+    ]
+  },
+  {
+    "id": 16,
+    "question": "Un idioma más hablado en el mundo.",
+    "answers": [
+      { "id": 1, "text": "Inglés", "points": 30 },
+      { "id": 2, "text": "Español", "points": 25 },
+      { "id": 3, "text": "Chino mandarín", "points": 20 },
+      { "id": 4, "text": "Árabe", "points": 15 }
+    ]
+  },
+  {
+    "id": 17,
+    "question": "Un pintor famoso.",
+    "answers": [
+      { "id": 1, "text": "Leonardo da Vinci", "points": 30 },
+      { "id": 2, "text": "Pablo Picasso", "points": 25 },
+      { "id": 3, "text": "Vincent van Gogh", "points": 20 },
+      { "id": 4, "text": "Salvador Dalí", "points": 15 },
+      { "id": 5, "text": "Miguel Ángel", "points": 10 },
+      { "id": 6, "text": "Frida Kahlo", "points": 5 }
+    ]
+  },
+  {
+    "id": 18,
+    "question": "Una película ganadora del Óscar.",
+    "answers": [
+      { "id": 1, "text": "Titanic", "points": 30 },
+      { "id": 2, "text": "Avatar", "points": 25 },
+      { "id": 3, "text": "El Padrino", "points": 20 },
+      { "id": 4, "text": "Gladiador", "points": 15 },
+      { "id": 5, "text": "El Señor de los Anillos", "points": 10 },
+      { "id": 6, "text": "Forrest Gump", "points": 5 }
+    ]
+  }
+]
+
