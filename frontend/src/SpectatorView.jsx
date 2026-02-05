@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 
 export default function SpectatorView({ onBackToMenu }) {
+  const API_URL = import.meta.env.VITE_API_URL
+
   const [revealedAnswers, setRevealedAnswers] = useState({})
   const [question, setQuestion] = useState(null)
   const [answers, setAnswers] = useState([])
@@ -23,7 +25,7 @@ export default function SpectatorView({ onBackToMenu }) {
     let intervalId
     const fetchState = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/state")
+        const res = await fetch(`${API_URL}/state`)
         const data = await res.json()
         if (data && data.question) {
           if (data.question.id !== questionId) {
@@ -51,7 +53,7 @@ export default function SpectatorView({ onBackToMenu }) {
   useEffect(() => {
     if (strikeModalTeam) {
       const timer = setTimeout(() => {
-        fetch("http://127.0.0.1:8000/clear-strike-modal", {
+        fetch(`${API_URL}/clear-strike-modal`, {
           method: "POST",
         })
         setStrikeModalTeam(null)

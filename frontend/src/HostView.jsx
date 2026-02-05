@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 
 export default function HostView({ onBackToMenu }) {
+  const API_URL = import.meta.env.VITE_API_URL
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentQuestion, setCurrentQuestion] = useState(null)
 
@@ -18,7 +20,7 @@ export default function HostView({ onBackToMenu }) {
 };
   
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/state")
+    fetch(`${API_URL}/state`)
       .then((res) => res.json())
       .then((data) => {
         setCurrentIndex(data.current_index || 0)
@@ -31,7 +33,7 @@ export default function HostView({ onBackToMenu }) {
   }, [])
 
   const goToNextQuestion = () => {
-    fetch("http://127.0.0.1:8000/next", { method: "POST" })
+    fetch(`${API_URL}/next`, { method: "POST" })
       .then((res) => res.json())
       .then((data) => {
         setCurrentIndex(data.current_index)
@@ -44,7 +46,7 @@ export default function HostView({ onBackToMenu }) {
   }
 
   const awardPoints = (team, points) => {
-    fetch("http://127.0.0.1:8000/award", {
+    fetch(`${API_URL}/award`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ team, points }),
@@ -59,7 +61,7 @@ export default function HostView({ onBackToMenu }) {
   }
 
   const removePoints = (team, points) => {
-  fetch("http://127.0.0.1:8000/remove-points", {
+  fetch(`${API_URL}/remove-points`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ team, points }),
@@ -72,7 +74,7 @@ export default function HostView({ onBackToMenu }) {
 }
 
   const addStrike = (team) => {
-    fetch("http://127.0.0.1:8000/strike", {
+    fetch(`${API_URL}/strike`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ team }),
@@ -85,7 +87,7 @@ export default function HostView({ onBackToMenu }) {
   }
 
   const removeStrike = (team) => {
-  fetch("http://127.0.0.1:8000/remove-strike", {
+  fetch(`${API_URL}/remove-strike`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ team }),
@@ -98,7 +100,7 @@ export default function HostView({ onBackToMenu }) {
 }
 
   const revealAnswer = (answerId) => {
-  fetch("http://127.0.0.1:8000/reveal", {
+  fetch(`${API_URL}/reveal`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ answer_id: answerId }),
