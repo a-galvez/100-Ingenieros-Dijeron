@@ -10,6 +10,13 @@ export default function SpectatorView({ onBackToMenu }) {
   const [revealedIdsFromHost, setRevealedIdsFromHost] = useState([])
   const [team1X, setTeam1X] = useState(0)
   const [team2X, setTeam2X] = useState(0)
+  const [strikeModalTeam, setStrikeModalTeam] = useState(null)
+
+  const colors = {
+  white: "#FFF5F7",
+  pink: "#DFA4B8",
+  red: "#E53935",
+};
 
   // Polling de estado del juego (controlado por el Host)
   useEffect(() => {
@@ -31,6 +38,7 @@ export default function SpectatorView({ onBackToMenu }) {
         setRevealedIdsFromHost(data.revealed_answer_ids || [])
         setTeam1X(data.team1_x || 0)
         setTeam2X(data.team2_x || 0)
+        setStrikeModalTeam(data.strike_modal_team)
       } catch (error) {
         console.error("Error al obtener el estado:", error)
       }
@@ -39,6 +47,19 @@ export default function SpectatorView({ onBackToMenu }) {
     intervalId = setInterval(fetchState, 1000)
     return () => clearInterval(intervalId)
   }, [])
+
+  useEffect(() => {
+    if (strikeModalTeam) {
+      const timer = setTimeout(() => {
+        fetch("http://127.0.0.1:8000/clear-strike-modal", {
+          method: "POST",
+        })
+        setStrikeModalTeam(null)
+      }, 2000) // 2 segundos
+
+      return () => clearTimeout(timer)
+    }
+  }, [strikeModalTeam])
 
   const toggleAnswer = (id) => {
     setRevealedAnswers((prev) => ({
@@ -49,17 +70,17 @@ export default function SpectatorView({ onBackToMenu }) {
 
   return (
     <div
-      className="min-h-screen p-8"
+      className="min-h-screen p-8 relative bg-cover bg-center"
       style={{
-        background: "linear-gradient(135deg, #12A19A 0%, #0F70B7 100%)",
+        backgroundImage: "url('/Fondo AEIS.png')",
       }}
     >
+      
       <div className="max-w-6xl mx-auto">
-        
 
         {/* Pregunta */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white bg-black/20 rounded-lg p-4 inline-block">
+        <div className="text-center mb-8 mt-5">
+          <h2 className="text-3xl font-bold rounded-lg p-4 inline-block" style={{ backgroundColor: colors.red, color: colors.white }}>
             {question ? question : "Cargando pregunta..."}
           </h2>
         </div>
@@ -67,8 +88,8 @@ export default function SpectatorView({ onBackToMenu }) {
         {/* Puntos de equipos */
         }
         <div className="flex justify-between items-center mb-8">
-          <div className="text-6xl font-bold text-white bg-black/20 rounded-lg p-6 min-w-[120px] text-center">{team1Score}</div>
-          <div className="text-6xl font-bold text-white bg-black/20 rounded-lg p-6 min-w-[120px] text-center">{team2Score}</div>
+          <div className="text-6xl font-bold rounded-lg p-6 min-w-[120px] text-center" style={{ backgroundColor: colors.white, color: colors.red }}>{team1Score}</div>
+          <div className="text-6xl font-bold rounded-lg p-6 min-w-[120px] text-center" style={{ backgroundColor: colors.white, color: colors.red }}>{team2Score}</div>
         </div>
 
         {/* Grid de respuestas */}
@@ -77,22 +98,23 @@ export default function SpectatorView({ onBackToMenu }) {
             <button
               key={answer.id}
               onClick={() => toggleAnswer(answer.id)}
-              className="bg-[#0F70B7] text-white p-4 rounded-lg text-xl font-semibold hover:bg-[#0d5a94] transition-colors flex items-center justify-between min-h-[80px] cursor-pointer"
+              className="bg-[#FFF5F7] text-[#E53935] p-4 rounded-lg text-xl font-semibold transition-colors flex items-center justify-between min-h-[80px] cursor-pointer"
             >
               <div className="flex items-center">
-                <div className="bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4">
+                <div className="text-[#E53935] rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 border">
                   {answer.id}
                 </div>
                 {(revealedAnswers[answer.id] || revealedIdsFromHost.includes(answer.id)) && (
-                  <span className="text-white">{answer.text}</span>
+                  <span className="text-[#E53935]">{answer.text}</span>
                 )}
               </div>
               {(revealedAnswers[answer.id] || revealedIdsFromHost.includes(answer.id)) && (
-                <span className="text-white font-bold text-2xl">{answer.points}</span>
+                <span className="text-[#E53935] font-bold text-2xl">{answer.points}</span>
               )}
             </button>
           ))}
         </div>
+
         {/* X animadas en esquinas */}
         <div className="fixed left-6 bottom-6 flex items-center gap-3 select-none">
           {Array.from({ length: team1X }).map((_, idx) => (
@@ -115,6 +137,21 @@ export default function SpectatorView({ onBackToMenu }) {
           ))}
         </div>
       </div>
+
+      {strikeModalTeam && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+        <div className="bg-white rounded-2xl p-16 text-center transition-opacity w-[500px]">
+          <img
+          src="/Heavy_red__x_.png"
+          alt="Respuesta incorrecta"
+          className="w-32 h-32 mx-auto mb-4"
+          />
+          <p className="text-xl mt-2 font-bold" style={{ color: colors.red }}>
+            Respuesta incorrecta
+          </p>
+        </div>
+      </div>
+    )}
     </div>
   )
 }

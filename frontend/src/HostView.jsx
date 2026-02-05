@@ -8,8 +8,15 @@ export default function HostView({ onBackToMenu }) {
   const [team2Score, setTeam2Score] = useState(0)
   const [team1X, setTeam1X] = useState(0)
   const [team2X, setTeam2X] = useState(0)
-  
 
+  const [revealedIds, setRevealedIds] = useState([])
+
+    const colors = {
+  white: "#FFF5F7",
+  pink: "#DFA4B8",
+  red: "#E53935",
+};
+  
   useEffect(() => {
     fetch("http://127.0.0.1:8000/state")
       .then((res) => res.json())
@@ -51,6 +58,19 @@ export default function HostView({ onBackToMenu }) {
       })
   }
 
+  const removePoints = (team, points) => {
+  fetch("http://127.0.0.1:8000/remove-points", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ team, points }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setTeam1Score(data.team1_score)
+      setTeam2Score(data.team2_score)
+    })
+}
+
   const addStrike = (team) => {
     fetch("http://127.0.0.1:8000/strike", {
       method: "POST",
@@ -64,25 +84,48 @@ export default function HostView({ onBackToMenu }) {
       })
   }
 
-  
+  const removeStrike = (team) => {
+  fetch("http://127.0.0.1:8000/remove-strike", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ team }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setTeam1X(data.team1_x)
+      setTeam2X(data.team2_x)
+    })
+}
+
+  const revealAnswer = (answerId) => {
+  fetch("http://127.0.0.1:8000/reveal", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ answer_id: answerId }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setRevealedIds(data.revealed_answer_ids || [])
+    })
+}
 
   if (!currentQuestion) return <p className="text-white">Cargando...</p>
 
   return (
-    <div className="min-h-screen p-8" style={{ background: "linear-gradient(135deg, #12A19A 0%, #0F70B7 100%)" }}>
+    <div className="min-h-screen p-8" style={{ backgroundColor: colors.pink }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Botón volver */}
         <div className="mb-6 flex items-center gap-3">
           <button
             onClick={onBackToMenu}
-            className="bg-white text-[#0F70B7] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+            className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer" style={{ backgroundColor: colors.red, color: colors.white }}
           >
             ← Volver al menú
           </button>
           <button
             onClick={goToNextQuestion}
-            className="bg-white text-[#0F70B7] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+            className= "px-6 py-2 rounded-lg font-semibol transition-colors cursor-pointer" style={{ backgroundColor: colors.red, color: colors.white }}
           >
             Nueva Pregunta
           </button>
@@ -90,7 +133,7 @@ export default function HostView({ onBackToMenu }) {
 
         {/* Pregunta */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-white bg-black/20 rounded-lg p-4 inline-block">
+          <h2 className="text-3xl font-bold rounded-lg p-4 inline-block" style={{ backgroundColor: colors.red, color: colors.white }}>
             {currentQuestion.question}
           </h2>
           <div className="mt-2 text-white/80 text-sm">Pregunta #{currentIndex + 1}</div>
@@ -99,61 +142,120 @@ export default function HostView({ onBackToMenu }) {
           <button
             onClick={() => addStrike(1)}
             disabled={team1X >= 3}
-            className="bg-white text-[#0F70B7] px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer" style={{ backgroundColor: colors.white, color: colors.red }}
           >
             Marcar X a Grupo 1 ({team1X}/3)
           </button>
           <button
+            onClick={() => removeStrike(1)}
+            disabled={team1X === 0}
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            style={{ backgroundColor: colors.white, color: colors.red }}
+          >
+            Quitar X a Grupo 1
+          </button>
+          <button
             onClick={() => addStrike(2)}
             disabled={team2X >= 3}
-            className="bg-white text-[#0F70B7] px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer" style={{ backgroundColor: colors.white, color: colors.red }}
           >
             Marcar X a Grupo 2 ({team2X}/3)
+          </button>
+          <button
+            onClick={() => removeStrike(2)}
+            disabled={team2X === 0}
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            style={{ backgroundColor: colors.white, color: colors.red }}
+          >
+            Quitar X a Grupo 2
           </button>
         </div>
 
         {/* Puntos */}
-        <div className="flex justify-between items-center mb-8">
-          <div className="text-6xl font-bold text-white bg-black/20 rounded-lg p-6">{team1Score}</div>
-          <div className="text-6xl font-bold text-white bg-black/20 rounded-lg p-6">{team2Score}</div>
+        <div className="flex justify-between items-center mb-8 mt-2">
+          <div className="text-6xl font-bold rounded-lg p-5" style={{ backgroundColor: colors.white, color: colors.red }}>{team1Score}</div>
+          <div className="text-6xl font-bold rounded-lg p-5" style={{ backgroundColor: colors.white, color: colors.red }}>{team2Score}</div>
         </div>
 
         {/* Respuestas */}
         <div className="grid grid-cols-1 gap-4 mb-8">
           {currentQuestion.answers.map((answer) => (
-            <div key={answer.id} className="bg-[#0F70B7] text-white p-4 rounded-lg flex justify-between items-center">
-              <div className="flex items-center">
-                <div className="bg-black/70 w-10 h-10 flex items-center justify-center rounded-full font-bold mr-4">
-                  {answer.id}
+            <div
+              key={answer.id}
+              className="p-4 rounded-lg"
+              style={{ backgroundColor: colors.white, color: colors.red }}
+            >
+              {/* Info de la respuesta */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-full font-bold mr-4 border">
+                    {answer.id}
+                  </div>
+                  <span className="text-xl">{answer.text}</span>
                 </div>
-                <span className="text-xl">{answer.text}</span>
-                <span className="text-2xl font-bold ml-4">{answer.points}</span>
+                <span className="text-2xl font-bold">{answer.points}</span>
               </div>
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => awardPoints(1, answer.points)}
-                  className="bg-white text-[#0F70B7] px-4 py-2 rounded font-semibold text-sm"
-                >
-                  Dar puntos a Grupo 1
-                </button>
-                <button
-                  onClick={() => {
-                    fetch("http://127.0.0.1:8000/reveal", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ answer_id: answer.id }),
-                    })
-                  }}
-                  className="bg-white text-[#0F70B7] px-4 py-2 rounded font-semibold text-sm"
-                >
-                  Revelar respuesta
-                </button>
-                <button
-                  onClick={() => awardPoints(2, answer.points)}
-                  className="bg-white text-[#0F70B7] px-4 py-2 rounded font-semibold text-sm"
-                >
-                  Dar puntos a Grupo 2
-                </button>
+
+              {/* Acciones */}
+              <div className="grid grid-cols-5 gap-4 items-end">
+                {/* Grupo 1 */}
+                <div className="flex flex-col gap-1">
+                  <span className="font-semibold text-sm">Grupo 1</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => awardPoints(1, answer.points)}
+                      className="px-3 py-2 rounded font-bold cursor-pointer"
+                      style={{ backgroundColor: colors.red, color: colors.white }}
+                    >
+                      Sumar {answer.points} puntos
+                    </button>
+                    <button
+                      onClick={() => removePoints(1, answer.points)}
+                      className="px-3 py-2 rounded font-bold border cursor-pointer"
+                      style={{ color: colors.red }}
+                    >
+                      Restar {answer.points} puntos
+                    </button>
+                  </div>
+                </div>
+
+                {/* Espaciador */}
+                <div />
+
+                {/* Revelar */}
+                <div className="flex items-end justify-center">
+                  <button
+                    onClick={() => revealAnswer(answer.id)}
+                    className="px-5 py-2 rounded font-semibold cursor-pointer"
+                    style={{ backgroundColor: colors.red, color: colors.white }}
+                  >
+                    Revelar respuesta
+                  </button>
+                </div>
+
+                {/* Espaciador */}
+                <div />
+
+                {/* Grupo 2 */}
+                <div className="flex flex-col gap-1 items-end">
+                  <span className="font-semibold text-sm">Grupo 2</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => awardPoints(2, answer.points)}
+                      className="px-3 py-2 rounded font-bold cursor-pointer"
+                      style={{ backgroundColor: colors.red, color: colors.white }}
+                    >
+                      Sumar {answer.points} puntos
+                    </button>
+                    <button
+                      onClick={() => removePoints(2, answer.points)}
+                      className="px-3 py-2 rounded font-bold border cursor-pointer"
+                      style={{ color: colors.red }}
+                    >
+                      Restar {answer.points} puntos
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
