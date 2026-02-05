@@ -130,3 +130,9 @@ def get_question(question_id: int):
         if q["id"] == question_id:
             return q
     return {"error": "Pregunta no encontrada"}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+
