@@ -14,7 +14,7 @@ export default function SpectatorView({ onBackToMenu }) {
   const [team2X, setTeam2X] = useState(0)
   const [strikeModalTeam, setStrikeModalTeam] = useState(null)
 
-  // colores de la aplicación 
+  //colores de la aplicación 
   const colors = {
     white: "#FFF5F7",
     primary: "#0F70B7",
@@ -24,7 +24,7 @@ export default function SpectatorView({ onBackToMenu }) {
     overlay: "rgba(0, 0, 0, 0.6)",
   }
 
-  // Polling de estado del juego (controlado por el Host)
+  //polling de estado del juego (controlado por el Host)
   useEffect(() => {
     let intervalId
 
