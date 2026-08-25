@@ -13,12 +13,17 @@ export default function HostView({ onBackToMenu }) {
 
   const [revealedIds, setRevealedIds] = useState([])
 
-    const colors = {
-  white: "#FFF5F7",
-  pink: "#DFA4B8",
-  red: "#E53935",
-};
-  
+  //colores de la aplicación
+  const colors = {
+    white: "#FFF5F7",
+    primary: "#0F70B7",
+    secondary: "#12A19A",
+    error: "#E53935",
+    black: "#000000",
+    overlay: "rgba(0, 0, 0, 0.6)",
+    whiteTransparent: "rgba(255, 245, 247, 0.8)",
+  }
+
   useEffect(() => {
     fetch(`${API_URL}/state`)
       .then((res) => res.json())
@@ -61,17 +66,17 @@ export default function HostView({ onBackToMenu }) {
   }
 
   const removePoints = (team, points) => {
-  fetch(`${API_URL}/remove-points`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ team, points }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setTeam1Score(data.team1_score)
-      setTeam2Score(data.team2_score)
+    fetch(`${API_URL}/remove-points`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ team, points }),
     })
-}
+      .then((res) => res.json())
+      .then((data) => {
+        setTeam1Score(data.team1_score)
+        setTeam2Score(data.team2_score)
+      })
+  }
 
   const addStrike = (team) => {
     fetch(`${API_URL}/strike`, {
@@ -87,47 +92,76 @@ export default function HostView({ onBackToMenu }) {
   }
 
   const removeStrike = (team) => {
-  fetch(`${API_URL}/remove-strike`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ team }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setTeam1X(data.team1_x)
-      setTeam2X(data.team2_x)
+    fetch(`${API_URL}/remove-strike`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ team }),
     })
-}
+      .then((res) => res.json())
+      .then((data) => {
+        setTeam1X(data.team1_x)
+        setTeam2X(data.team2_x)
+      })
+  }
 
   const revealAnswer = (answerId) => {
-  fetch(`${API_URL}/reveal`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ answer_id: answerId }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      setRevealedIds(data.revealed_answer_ids || [])
+    fetch(`${API_URL}/reveal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answer_id: answerId }),
     })
-}
+      .then((res) => res.json())
+      .then((data) => {
+        setRevealedIds(data.revealed_answer_ids || [])
+      })
+  }
 
-  if (!currentQuestion) return <p className="text-white">Cargando...</p>
+  if (!currentQuestion) {
+    return (
+      <p
+        style={{
+          color: colors.white,
+          backgroundColor: colors.primary,
+        }}
+      >
+        Cargando...
+      </p>
+    )
+  }
 
   return (
-    <div className="min-h-screen p-8" style={{ backgroundColor: colors.pink }}>
+    <div
+      className="min-h-screen p-8"
+      style={{
+        background: `linear-gradient(
+          135deg,
+          ${colors.secondary} 0%,
+          ${colors.primary} 100%
+        )`,
+      }}
+    >
       <div className="max-w-6xl mx-auto">
 
-        {/* Botón volver */}
+        {/* Botones superiores */}
         <div className="mb-6 flex items-center gap-3">
           <button
             onClick={onBackToMenu}
-            className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer" style={{ backgroundColor: colors.red, color: colors.white }}
+            className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer"
+            style={{
+              backgroundColor: colors.secondary,
+              color: colors.white,
+            }}
           >
             ← Volver al menú
           </button>
+
           <button
             onClick={goToNextQuestion}
-            className= "px-6 py-2 rounded-lg font-semibol transition-colors cursor-pointer" style={{ backgroundColor: colors.red, color: colors.white }}
+            className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer"
+            style={{
+              backgroundColor: colors.secondary,
+              color: colors.white,
+            }}
           >
             Nueva Pregunta
           </button>
@@ -135,39 +169,72 @@ export default function HostView({ onBackToMenu }) {
 
         {/* Pregunta */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold rounded-lg p-4 inline-block" style={{ backgroundColor: colors.red, color: colors.white }}>
+          <h2
+            className="text-3xl font-bold rounded-lg p-4 inline-block"
+            style={{
+              backgroundColor: colors.secondary,
+              color: colors.white,
+            }}
+          >
             {currentQuestion.question}
           </h2>
-          <div className="mt-2 text-white/80 text-sm">Pregunta #{currentIndex + 1}</div>
+
+          <div
+            className="mt-2 text-sm"
+            style={{
+              color: colors.whiteTransparent,
+            }}
+          >
+            Pregunta #{currentIndex + 1}
+          </div>
         </div>
+
+        {/* Controles de X */}
         <div className="flex justify-between items-center">
           <button
             onClick={() => addStrike(1)}
             disabled={team1X >= 3}
-            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer" style={{ backgroundColor: colors.white, color: colors.red }}
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
           >
             Marcar X a Grupo 1 ({team1X}/3)
           </button>
+
           <button
             onClick={() => removeStrike(1)}
             disabled={team1X === 0}
             className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
-            style={{ backgroundColor: colors.white, color: colors.red }}
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
           >
             Quitar X a Grupo 1
           </button>
+
           <button
             onClick={() => addStrike(2)}
             disabled={team2X >= 3}
-            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer" style={{ backgroundColor: colors.white, color: colors.red }}
+            className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
           >
             Marcar X a Grupo 2 ({team2X}/3)
           </button>
+
           <button
             onClick={() => removeStrike(2)}
             disabled={team2X === 0}
             className="px-4 py-2 rounded font-semibold text-sm disabled:opacity-50 cursor-pointer"
-            style={{ backgroundColor: colors.white, color: colors.red }}
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
           >
             Quitar X a Grupo 2
           </button>
@@ -175,8 +242,25 @@ export default function HostView({ onBackToMenu }) {
 
         {/* Puntos */}
         <div className="flex justify-between items-center mb-8 mt-2">
-          <div className="text-6xl font-bold rounded-lg p-5" style={{ backgroundColor: colors.white, color: colors.red }}>{team1Score}</div>
-          <div className="text-6xl font-bold rounded-lg p-5" style={{ backgroundColor: colors.white, color: colors.red }}>{team2Score}</div>
+          <div
+            className="text-6xl font-bold rounded-lg p-5"
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
+          >
+            {team1Score}
+          </div>
+
+          <div
+            className="text-6xl font-bold rounded-lg p-5"
+            style={{
+              backgroundColor: colors.white,
+              color: colors.secondary,
+            }}
+          >
+            {team2Score}
+          </div>
         </div>
 
         {/* Respuestas */}
@@ -185,36 +269,78 @@ export default function HostView({ onBackToMenu }) {
             <div
               key={answer.id}
               className="p-4 rounded-lg"
-              style={{ backgroundColor: colors.white, color: colors.red }}
+              style={{
+                backgroundColor: colors.white,
+                color: colors.secondary,
+              }}
             >
-              {/* Info de la respuesta */}
+              {/* Información de la respuesta */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-full font-bold mr-4 border">
+                  <div
+                    className="w-10 h-10 flex items-center justify-center rounded-full font-bold mr-4 border"
+                    style={{
+                      color: colors.secondary,
+                      borderColor: colors.secondary,
+                    }}
+                  >
                     {answer.id}
                   </div>
-                  <span className="text-xl">{answer.text}</span>
+
+                  <span
+                    className="text-xl"
+                    style={{
+                      color: colors.secondary,
+                    }}
+                  >
+                    {answer.text}
+                  </span>
                 </div>
-                <span className="text-2xl font-bold">{answer.points}</span>
+
+                <span
+                  className="text-2xl font-bold"
+                  style={{
+                    color: colors.secondary,
+                  }}
+                >
+                  {answer.points}
+                </span>
               </div>
 
               {/* Acciones */}
               <div className="grid grid-cols-5 gap-4 items-end">
+
                 {/* Grupo 1 */}
                 <div className="flex flex-col gap-1">
-                  <span className="font-semibold text-sm">Grupo 1</span>
+                  <span
+                    className="font-semibold text-sm"
+                    style={{
+                      color: colors.secondary,
+                    }}
+                  >
+                    Grupo 1
+                  </span>
+
                   <div className="flex gap-2">
                     <button
                       onClick={() => awardPoints(1, answer.points)}
                       className="px-3 py-2 rounded font-bold cursor-pointer"
-                      style={{ backgroundColor: colors.red, color: colors.white }}
+                      style={{
+                        backgroundColor: colors.secondary,
+                        color: colors.white,
+                      }}
                     >
                       Sumar {answer.points} puntos
                     </button>
+
                     <button
                       onClick={() => removePoints(1, answer.points)}
                       className="px-3 py-2 rounded font-bold border cursor-pointer"
-                      style={{ color: colors.red }}
+                      style={{
+                        color: colors.secondary,
+                        borderColor: colors.secondary,
+                        backgroundColor: colors.white,
+                      }}
                     >
                       Restar {answer.points} puntos
                     </button>
@@ -229,7 +355,10 @@ export default function HostView({ onBackToMenu }) {
                   <button
                     onClick={() => revealAnswer(answer.id)}
                     className="px-5 py-2 rounded font-semibold cursor-pointer"
-                    style={{ backgroundColor: colors.red, color: colors.white }}
+                    style={{
+                      backgroundColor: colors.secondary,
+                      color: colors.white,
+                    }}
                   >
                     Revelar respuesta
                   </button>
@@ -240,19 +369,35 @@ export default function HostView({ onBackToMenu }) {
 
                 {/* Grupo 2 */}
                 <div className="flex flex-col gap-1 items-end">
-                  <span className="font-semibold text-sm">Grupo 2</span>
+                  <span
+                    className="font-semibold text-sm"
+                    style={{
+                      color: colors.secondary,
+                    }}
+                  >
+                    Grupo 2
+                  </span>
+
                   <div className="flex gap-2">
                     <button
                       onClick={() => awardPoints(2, answer.points)}
                       className="px-3 py-2 rounded font-bold cursor-pointer"
-                      style={{ backgroundColor: colors.red, color: colors.white }}
+                      style={{
+                        backgroundColor: colors.secondary,
+                        color: colors.white,
+                      }}
                     >
                       Sumar {answer.points} puntos
                     </button>
+
                     <button
                       onClick={() => removePoints(2, answer.points)}
                       className="px-3 py-2 rounded font-bold border cursor-pointer"
-                      style={{ color: colors.red }}
+                      style={{
+                        color: colors.secondary,
+                        borderColor: colors.secondary,
+                        backgroundColor: colors.white,
+                      }}
                     >
                       Restar {answer.points} puntos
                     </button>
