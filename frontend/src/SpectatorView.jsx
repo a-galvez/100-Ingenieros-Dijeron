@@ -96,7 +96,7 @@ export default function SpectatorView({ onBackToMenu }) {
           <h2
             className="text-3xl font-bold rounded-lg p-4 inline-block"
             style={{
-              backgroundColor: colors.whiteTransparent,
+              backgroundColor: colors.white,
               color: colors.primary,
             }}
           >
@@ -109,7 +109,7 @@ export default function SpectatorView({ onBackToMenu }) {
           <div
             className="text-6xl font-bold rounded-lg p-6 min-w-[120px] text-center"
             style={{
-              backgroundColor: colors.white,
+              backgroundColor: colors.whiteTransparent,
               color: colors.secondary,
             }}
           >
@@ -149,7 +149,7 @@ export default function SpectatorView({ onBackToMenu }) {
                     className="rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4"
                     style={{
                       color: colors.primary,
-                      //borderColor: colors.error,
+                      borderColor: colors.primary,
                     }}
                   >
                     {answer.id}
@@ -223,7 +223,7 @@ export default function SpectatorView({ onBackToMenu }) {
             }}
           >
             <img
-              src="/Heavy_secondary__x_.png"
+              src="/Heavy_red__x_.png"
               alt="Respuesta incorrecta"
               className="w-32 h-32 mx-auto mb-4"
             />

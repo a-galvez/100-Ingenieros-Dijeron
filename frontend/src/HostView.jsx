@@ -172,7 +172,7 @@ export default function HostView({ onBackToMenu }) {
           <h2
             className="text-3xl font-bold rounded-lg p-4 inline-block"
             style={{
-              backgroundColor: colors.whiteTransparent,
+              backgroundColor: colors.white,
               color: colors.primary,
             }}
           >
@@ -245,7 +245,7 @@ export default function HostView({ onBackToMenu }) {
           <div
             className="text-6xl font-bold rounded-lg p-5"
             style={{
-              backgroundColor: colors.white,
+              backgroundColor: colors.whiteTransparent,
               color: colors.secondary,
             }}
           >
@@ -255,7 +255,7 @@ export default function HostView({ onBackToMenu }) {
           <div
             className="text-6xl font-bold rounded-lg p-5"
             style={{
-              backgroundColor: colors.white,
+              backgroundColor: colors.whiteTransparent,
               color: colors.secondary,
             }}
           >
