@@ -22,6 +22,7 @@ export default function SpectatorView({ onBackToMenu }) {
     error: "#E53935",
     black: "#000000",
     overlay: "rgba(0, 0, 0, 0.6)",
+    whiteTransparent: "rgba(255, 245, 247, 0.8)",
   }
 
   //polling de estado del juego (controlado por el Host)
@@ -95,8 +96,8 @@ export default function SpectatorView({ onBackToMenu }) {
           <h2
             className="text-3xl font-bold rounded-lg p-4 inline-block"
             style={{
-              backgroundColor: colors.secondary,
-              color: colors.white,
+              backgroundColor: colors.whiteTransparent,
+              color: colors.primary,
             }}
           >
             {question ? question : "Cargando pregunta..."}
@@ -140,22 +141,22 @@ export default function SpectatorView({ onBackToMenu }) {
                 className="p-4 rounded-lg text-xl font-semibold transition-colors flex items-center justify-between min-h-[80px] cursor-pointer"
                 style={{
                   backgroundColor: colors.white,
-                  color: colors.error,
+                  color: colors.primary,
                 }}
               >
                 <div className="flex items-center">
                   <div
-                    className="rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4 border"
+                    className="rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4"
                     style={{
-                      color: colors.error,
-                      borderColor: colors.error,
+                      color: colors.primary,
+                      //borderColor: colors.error,
                     }}
                   >
                     {answer.id}
                   </div>
 
                   {isRevealed && (
-                    <span style={{ color: colors.error }}>
+                    <span style={{ color: colors.primary }}>
                       {answer.text}
                     </span>
                   )}
@@ -164,7 +165,7 @@ export default function SpectatorView({ onBackToMenu }) {
                 {isRevealed && (
                   <span
                     className="font-bold text-2xl"
-                    style={{ color: colors.error }}
+                    style={{ color: colors.primary }}
                   >
                     {answer.points}
                   </span>

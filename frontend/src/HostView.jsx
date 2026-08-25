@@ -148,8 +148,8 @@ export default function HostView({ onBackToMenu }) {
             onClick={onBackToMenu}
             className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer"
             style={{
-              backgroundColor: colors.secondary,
-              color: colors.white,
+              backgroundColor: colors.whiteTransparent,
+              color: colors.primary,
             }}
           >
             ← Volver al menú
@@ -159,8 +159,8 @@ export default function HostView({ onBackToMenu }) {
             onClick={goToNextQuestion}
             className="px-6 py-2 rounded-lg font-semibold transition-colors cursor-pointer"
             style={{
-              backgroundColor: colors.secondary,
-              color: colors.white,
+              backgroundColor: colors.whiteTransparent,
+              color: colors.primary,
             }}
           >
             Nueva Pregunta
@@ -172,8 +172,8 @@ export default function HostView({ onBackToMenu }) {
           <h2
             className="text-3xl font-bold rounded-lg p-4 inline-block"
             style={{
-              backgroundColor: colors.secondary,
-              color: colors.white,
+              backgroundColor: colors.whiteTransparent,
+              color: colors.primary,
             }}
           >
             {currentQuestion.question}
@@ -326,7 +326,7 @@ export default function HostView({ onBackToMenu }) {
                       onClick={() => awardPoints(1, answer.points)}
                       className="px-3 py-2 rounded font-bold cursor-pointer"
                       style={{
-                        backgroundColor: colors.secondary,
+                        backgroundColor: colors.primary,
                         color: colors.white,
                       }}
                     >
@@ -337,8 +337,8 @@ export default function HostView({ onBackToMenu }) {
                       onClick={() => removePoints(1, answer.points)}
                       className="px-3 py-2 rounded font-bold border cursor-pointer"
                       style={{
-                        color: colors.secondary,
-                        borderColor: colors.secondary,
+                        color: colors.primary,
+                        borderColor: colors.primary,
                         backgroundColor: colors.white,
                       }}
                     >
@@ -356,7 +356,7 @@ export default function HostView({ onBackToMenu }) {
                     onClick={() => revealAnswer(answer.id)}
                     className="px-5 py-2 rounded font-semibold cursor-pointer"
                     style={{
-                      backgroundColor: colors.secondary,
+                      backgroundColor: colors.primary,
                       color: colors.white,
                     }}
                   >
@@ -383,7 +383,7 @@ export default function HostView({ onBackToMenu }) {
                       onClick={() => awardPoints(2, answer.points)}
                       className="px-3 py-2 rounded font-bold cursor-pointer"
                       style={{
-                        backgroundColor: colors.secondary,
+                        backgroundColor: colors.primary,
                         color: colors.white,
                       }}
                     >
@@ -394,8 +394,8 @@ export default function HostView({ onBackToMenu }) {
                       onClick={() => removePoints(2, answer.points)}
                       className="px-3 py-2 rounded font-bold border cursor-pointer"
                       style={{
-                        color: colors.secondary,
-                        borderColor: colors.secondary,
+                        color: colors.primary,
+                        borderColor: colors.primary,
                         backgroundColor: colors.white,
                       }}
                     >
