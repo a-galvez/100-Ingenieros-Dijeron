@@ -119,7 +119,7 @@ export default function SpectatorView({ onBackToMenu }) {
           <div
             className="text-6xl font-bold rounded-lg p-6 min-w-[120px] text-center"
             style={{
-              backgroundColor: colors.white,
+              backgroundColor: colors.whiteTransparent,
               color: colors.secondary,
             }}
           >
